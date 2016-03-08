@@ -52,22 +52,24 @@ def enabletuns(vms):
             ctid = getctid(vm)
             enabletun(ctid)
         else:
-            print("Invalid input. must either be a CTID or IP (101 or 192.168.1.1:",vm)
+            print("Invalid input. must either be a CTID or IP (101 or 192.168.1.1):",vm)
 
     print("enabling tun for multiple vms")
 
-def validate(input):
+def validate(val):
     #check if the input is a ctid,ip or invalid
 
     valid = False
     try:
-        ctid = int(input)
-        return "CTID"
+        ctid = int(val)
+        if ctid >= 100:
+            return "CTID"
+
     except ValueError:
         #not a ctid
         pass
     try:
-        ip = IP(input)
+        ip = IP(val)
         return "IP"
     except:
         #not an IP
@@ -90,14 +92,14 @@ def main():
         enabletuns(sys.argv[1:])
     elif len(sys.argv) ==2:
         #just a single vm needs tun enabled
-        input = sys.argv[1]
-        if validate(input) == "CTID":
-            enabletun(input)
-        elif validate(input)== "IP":
-            ctid = getctid(input)
+        val = sys.argv[1]
+        if validate(val) == "CTID":
+            enabletun(val)
+        elif validate(val)== "IP":
+            ctid = getctid(val)
             enabletun(ctid)
         else:
-            print("Invalid input. must either be a CTID or IP (101 or 192.168.1.1")
+            print("Invalid input. must either be a CTID or IP (101 or 192.168.1.1)")
     else:
         #print out the help
         printhelp()
