@@ -83,13 +83,11 @@ def printhelp():
 def main():
 
     if "--help" in sys.argv:
-        print(sys.argv)
         printhelp()
     elif len(sys.argv) > 2:
         #more than one vm needs tun enabled
         print("More than one vm needs tun enabled")
         enabletuns(sys.argv[1:])
-        print(sys.argv)
     elif len(sys.argv) ==2:
         #just a single vm needs tun enabled
         input = sys.argv[1]
