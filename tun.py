@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
+# enables and disables tun for openvz containers
 
-#enables and disables tun for openvz containers
-
-import sys,getopt,vz,ContainerNotFound
-
-from IPy import IP
+import sys
 from vz import VZ
 from ContainerNotFound import ContainerNotFound
 
+
 def enable_tuns(vm_list):
-    #figure out if is a list of ips or ctids
-    #then loop through them to activate
+    # figure out if is a list of ips or ctids
+    # then loop through them to activate
 
     for vm in vm_list:
         container = None
@@ -27,9 +25,8 @@ def enable_tuns(vm_list):
             print("Invalid format: " + vm + " must be either an ip or ctid (192.168.1.1 : 101)")
 
 
-
 def printhelp():
-    #print syntax
+    # print syntax
     print("tun <ctid> ... | <ip> ...")
 
 
@@ -38,12 +35,12 @@ def main():
     if "--help" in sys.argv:
         printhelp()
     elif len(sys.argv) > 2:
-        #more than one vm needs tun enabled
+        # more than one vm needs tun enabled
         enable_tuns(sys.argv[1:])
-    elif len(sys.argv) ==2:
-        #just a single vm needs tun enabled
+    elif len(sys.argv) == 2:
+        # just a single vm needs tun enabled
         val = sys.argv[1]
-        vm=None
+        vm = None
         try:
             vm = VZ(val)
             if vm.enable_tun():
@@ -56,7 +53,7 @@ def main():
             print("Container Does not Exist")
 
     else:
-        #print out the help
+        # print out the help
         printhelp()
 
 main()

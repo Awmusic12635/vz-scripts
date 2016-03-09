@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
-#Enable ppp on openvz server
+# Enable ppp on openvz server
 
-import sys,getopt,vz,ContainerNotFound
+import sys
 from vz import VZ
 from ContainerNotFound import ContainerNotFound
 
+
 def enable_ppps(vm_list):
-    #figure out if is a list of ips or ctids
-    #then loop through them to activate
+    # figure out if is a list of ips or ctids
+    # then loop through them to activate
 
     for vm in vm_list:
         container = None
@@ -26,7 +27,7 @@ def enable_ppps(vm_list):
 
 
 def printhelp():
-    #print syntax
+    # print syntax
     print("ppp <ctid> ... | <ip> ...")
 
 
@@ -35,12 +36,12 @@ def main():
     if "--help" in sys.argv:
         printhelp()
     elif len(sys.argv) > 2:
-        #more than one vm needs tun enabled
+        # more than one vm needs tun enabled
         enable_ppps(sys.argv[1:])
-    elif len(sys.argv) ==2:
-        #just a single vm needs tun enabled
+    elif len(sys.argv) == 2:
+        # just a single vm needs tun enabled
         val = sys.argv[1]
-        vm=None
+        vm = None
         try:
             vm = VZ(val)
             if vm.enable_ppp():
@@ -53,6 +54,6 @@ def main():
             print("Container Does not Exist")
 
     else:
-        #print out the help
+        # print out the help
         printhelp()
 main()
